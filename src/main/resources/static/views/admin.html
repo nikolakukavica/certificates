@@ -1,0 +1,39 @@
+<table class="table myTable">
+    <nav class="navbar navbar-dark red">
+        <div class="container-fluid">
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li ><a ng-click="logout()" >Log out</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <tr>
+        <th>Common name</th>
+        <th>Given name</th>
+        <th>Surname</th>
+        <th>Organisation</th>
+        <th>Organisation Unit</th>
+        <th>Country</th>
+        <th>Email</th>
+        <th>Uid</th>
+        <th>Is root</th>
+        <th>&nbsp</th>
+        <th>&nbsp</th>
+    </tr>
+    <tr ng-repeat="user in users">
+        <td>{{user.commonName}}</td>
+        <td>{{user.givenName}}</td>
+        <td>{{user.sureName}}</td>
+        <td>{{user.organisation}}</td>
+        <td>{{user.organisationUnit}}</td>
+        <td>{{user.country}}</td>
+        <td>{{user.email}}</td>
+        <td>{{user.uid}}</td>
+        <td>{{user.isRoot}}</td>
+        <td><button type="button" class="btn btn-success" ng-click="approve(user)">Approve</button></td>
+        <td><button type="button" class="btn btn-danger" ng-click="cancel(user)">Cancel</button></td>
+    </tr>
+</table>

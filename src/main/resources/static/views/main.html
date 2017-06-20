@@ -1,0 +1,147 @@
+<div class="container">
+    <nav class="navbar navbar-dark red">
+        <div class="container-fluid">
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li ><a ng-click="logout()" >Log out</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="row">
+        <div class="col-md-12 top">
+            <button type="button" class="btn btn-info brt-block" id="generateButton" ng-hide="user.root" ng-click="generateSS()">Generate self-signed certificate</button>
+            <table class="table">
+                <tr>
+                    <th>Serial number</th>
+                    <th>Subject info</th>
+                    <th>Issuer info</th>
+                    <th>Action</th>
+                </tr>
+                <tr ng-repeat="authority in authorities">
+                    <td>{{authority.serialNumber}}</td>
+                    <td>
+                        <ul>
+                            <li>{{authority.subject.commonName}}</li>
+                            <li>{{authority.subject.givenName}} {{authority.subject.sureName}}</li>
+                            <li>{{authority.subject.organisation}} {{authority.subject.organisationUnit}}</li>
+                            <li>{{authority.subject.email}}</li>
+                            <li>{{authority.subject.country}}</li>
+                            <li>{{authority.subject.uid}}</li>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                            <li>{{authority.issuer.commonName}}</li>
+                            <li>{{authority.issuer.givenName}} {{authority.subject.sureName}}</li>
+                            <li>{{authority.issuer.organisation}} {{authority.subject.organisationUnit}}</li>
+                            <li>{{authority.issuer.email}}</li>
+                            <li>{{authority.issuer.country}}</li>
+                            <li>{{authority.issuer.uid}}</li>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                            <li><button type="button" style="margin:5px;" class="btn btn-info" ng-click="requestCertificate(false,authority.serialNumber)">Request Certificate</button></li>
+                            <li><button type="button" style="margin:5px;" class="btn btn-primary" ng-click="requestCertificate(true,authority.serialNumber)">Request CA Certificate</button></li>
+                        </ul>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 bottomLeft">
+            <table class="table">
+                <tr>
+                    <input type="text" name="serial_number" id="serial_number" ng-model="serial_number" class="form-control input-sm" placeholder="Serial number">
+                </tr>
+                <tr>
+                    <button type="button" ng-click="getCertificate()" class="btn btn-success myButton">Get</button>
+                    <button type="button" ng-click="getStatus()" class="btn btn-info myButton">Status</button>
+                    <button type="button" ng-click="withdraw()" class="btn btn-danger myButton">Withdraw</button>
+                </tr>
+            </table>
+
+
+            <table class="table myTable">
+                <tr>
+                    <th>Serial number</th>
+                    <th>Subject info</th>
+                    <th>Issuer info</th>
+
+                </tr>
+                <tr ng-repeat="cert in myCertificates">
+                    <td>{{cert.serialNumber}}</td>
+                    <td>
+                        <ul>
+                            <li>{{cert.subject.commonName}}</li>
+                            <li>{{cert.subject.givenName}} {{cert.subject.sureName}}</li>
+                            <li>{{cert.subject.organisation}} {{cert.subject.organisationUnit}}</li>
+                            <li>{{cert.subject.email}}</li>
+                            <li>{{cert.subject.country}}</li>
+                            <li>{{cert.subject.uid}}</li>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                            <li>{{cert.issuer.commonName}}</li>
+                            <li>{{cert.issuer.givenName}} {{cert.issuer.sureName}}</li>
+                            <li>{{cert.issuer.organisation}} {{cert.issuer.organisationUnit}}</li>
+                            <li>{{cert.issuer.email}}</li>
+                            <li>{{cert.issuer.country}}</li>
+                            <li>{{cert.issuer.uid}}</li>
+                        </ul>
+                    </td>
+                </tr>
+            </table>
+
+        </div>
+        <div class="col-md-6 bottomRight">
+
+
+
+            <table class="table myTable">
+                <tr>
+                    <th>Subject info</th>
+                    <th>Issuer info</th>
+                    <th>Wants CA</th>
+                    <th>Action</th>
+                </tr>
+                <tr ng-repeat="request in requests">
+                    <td>
+                        <ul>
+                            <li>{{request.subject.commonName}}</li>
+                            <li>{{request.subject.givenName}} {{request.subject.sureName}}</li>
+                            <li>{{request.subject.organisation}} {{request.subject.organisationUnit}}</li>
+                            <li>{{request.subject.email}}</li>
+                            <li>{{request.subject.country}}</li>
+                            <li>{{request.subject.uid}}</li>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                            <li>{{request.issuer.commonName}}</li>
+                            <li>{{request.issuer.givenName}} {{request.subject.sureName}}</li>
+                            <li>{{request.issuer.organisation}} {{request.subject.organisationUnit}}</li>
+                            <li>{{request.issuer.email}}</li>
+                            <li>{{request.issuer.country}}</li>
+                            <li>{{request.issuer.uid}}</li>
+                        </ul>
+                    </td>
+                    <td>{{request.wantsCa}}</td>
+                    <td>
+                        <ul>
+                            <li><button type="button" style="margin:5px;" class="btn btn-success" ng-click="accept(request.csr_id)">Accept</button></li>
+                            <li><button type="button" style="margin:5px;" class="btn btn-danger" ng-click="decline(request.csr_id)">Decline</button></li>
+                        </ul>
+                    </td>
+                </tr>
+            </table>
+
+        </div>
+    </div>
+</div>
